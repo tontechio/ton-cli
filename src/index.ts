@@ -22,15 +22,23 @@ import { downloadTransactions } from './commands/downloadTransactions';
             .usage('$0 ton-cli [args]')
             .boolean('test')
             .boolean('offline')
+            .string('apikey')
             .parseAsync();
         let testnet = parsed.test ? true : false;
         let offline = parsed.offline ? true : false;
+        let apiKey = process.env.TON_CLI_APIKEY ? process.env.TON_CLI_APIKEY : parsed.apikey;
+        if (apiKey === undefined) {
+            apiKey = 'eecabd4dc65eda9794d8dd1442ad16468472e50ea5f7561f60ec40782fd661fe';
+        }
         if (process.env.TON_CLI_OFFLINE === 'true') {
             offline = true;
         }
         let client = offline
             ? new TonClient({ endpoint: '' })
-            : new TonClient({ endpoint: testnet ? 'https://testnet.toncenter.com/api/v2/jsonRPC' : 'https://mainnet.tonhubapi.com/jsonRPC' });
+            : new TonClient({ 
+                endpoint: testnet ? 'https://testnet.toncenter.com/api/v2/jsonRPC' : 'https://toncenter.com/api/v2/jsonRPC',
+                apiKey: apiKey,
+            });
         const config: Config = {
             testnet: testnet,
             offline,
