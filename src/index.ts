@@ -27,6 +27,9 @@ import { downloadTransactions } from './commands/downloadTransactions';
         let testnet = parsed.test ? true : false;
         let offline = parsed.offline ? true : false;
         let apiKey = process.env.TON_CLI_APIKEY ? process.env.TON_CLI_APIKEY : parsed.apikey;
+        if (apiKey === undefined) {
+            apiKey = 'eecabd4dc65eda9794d8dd1442ad16468472e50ea5f7561f60ec40782fd661fe';
+        }
         if (process.env.TON_CLI_OFFLINE === 'true') {
             offline = true;
         }
