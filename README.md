@@ -15,7 +15,7 @@ CLI client for TON.
 ## Install
 
 ```bash
-npm install -g ton-cli
+npm install -g tontechio/ton-cli
 ```
 
 ## How to use
